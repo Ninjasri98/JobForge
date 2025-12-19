@@ -12,6 +12,7 @@ import { canCreateInterview } from "./permissions"
 import { PLAN_LIMIT_MESSAGE, RATE_LIMIT_MESSAGE } from "@/lib/errorToast"
 import { env } from "@/data/env/server"
 import arcjet, { tokenBucket, request } from "@arcjet/next"
+import { generateAiInterviewFeedback } from "@/services/ai/interviews"
 
 const aj = arcjet({
   characteristics: ["userId"],
@@ -123,8 +124,18 @@ export async function generateInterviewFeedback(interviewId: string) {
     }
   }
 
-    
-  const feedback = "This is placeholder feedback."
+  const feedback = await generateAiInterviewFeedback({
+    humeChatId: interview.humeChatId,
+    jobInfo: interview.jobInfo,
+    userName: user.name,
+  })
+
+  if (feedback == null) {
+    return {
+      error: true,
+      message: "Failed to generate feedback",
+    }
+  }
 
   await updateInterviewDb(interviewId, { feedback })
 
