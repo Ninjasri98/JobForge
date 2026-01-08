@@ -48,7 +48,7 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/Ninjasri98/JobForge.git](https://github.com/Ninjasri98/JobForge.git)
+   git clone https://github.com/Ninjasri98/JobForge.git
    cd JobForge
    ```
 2. **Install dependencies:**
