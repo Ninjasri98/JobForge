@@ -11,10 +11,6 @@ import { useVoice, VoiceReadyState } from "@humeai/voice-react"
 import { Loader2Icon, MicIcon, MicOffIcon, PhoneOffIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { ConnectionMessage } from "@humeai/voice-react"
-import { JsonMessage, ReturnChatEvent } from "hume/api/resources/empathicVoice"
-
-type Message = JsonMessage | ConnectionMessage | ReturnChatEvent
 
 export function StartCall({
   jobInfo,
@@ -129,7 +125,7 @@ function Messages({ user }: { user: { name: string; imageUrl: string } }) {
   const { messages, fft } = useVoice()
 
   const condensedMessages = useMemo(() => {
-    return condenseChatMessages(messages as Message[])
+    return condenseChatMessages(messages)
   }, [messages])
 
   return (
